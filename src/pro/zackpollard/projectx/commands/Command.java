@@ -7,6 +7,7 @@ public abstract class Command {
 
     /**
      * Construct a new command with no permissions or aliases.
+     *
      * @param name the name of this command
      */
     public Command(String name)
@@ -16,6 +17,7 @@ public abstract class Command {
 
     /**
      * Construct a new command.
+     *
      * @param name primary name of this command
      * @param aliases aliases which map back to this command
      */
@@ -27,6 +29,7 @@ public abstract class Command {
 
     /**
      * Used to get the command name set for this Command.
+     *
      * @return The command name that was set for this Command.
      */
     public String getName() {
@@ -36,6 +39,7 @@ public abstract class Command {
 
     /**
      * Used to get the aliases of this Command.
+     *
      * @return an Array of type String of the aliases this Command has.
      */
     public String[] getAliases() {
@@ -45,6 +49,7 @@ public abstract class Command {
 
     /**
      * Used to get the actual name of the class. Used mostly for internal logging.
+     *
      * @return The full name of the class.
      */
     public String getActualName() {

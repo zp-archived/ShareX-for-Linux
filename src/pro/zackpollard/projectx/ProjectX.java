@@ -32,6 +32,7 @@ public class ProjectX {
 
     /**
      * Initialise all commands in this bracket.
+     * //TODO: Change this to a config based system so registration here is not needed tobe done manually, and some can be disabled.
      */
     private void registerCommands() {
 
