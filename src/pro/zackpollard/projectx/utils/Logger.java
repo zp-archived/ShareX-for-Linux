@@ -77,15 +77,7 @@ public class Logger {
      */
     public boolean toggleDebug() {
 
-        if(this.debug) {
-
-            debug = false;
-        } else {
-
-            debug = true;
-        }
-
-        return debug;
+        return this.debug = !this.debug;
     }
 
     /**
