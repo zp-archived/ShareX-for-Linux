@@ -7,7 +7,6 @@ public abstract class Command {
 
     /**
      * Construct a new command with no permissions or aliases.
-     *
      * @param name the name of this command
      */
     public Command(String name)
@@ -17,7 +16,6 @@ public abstract class Command {
 
     /**
      * Construct a new command.
-     *
      * @param name primary name of this command
      * @param aliases aliases which map back to this command
      */
