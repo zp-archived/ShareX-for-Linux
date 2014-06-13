@@ -10,8 +10,8 @@ public abstract class Command {
      *
      * @param name the name of this command
      */
-    public Command(String name)
-    {
+    public Command(String name) {
+
         this(name, null);
     }
 
@@ -21,8 +21,8 @@ public abstract class Command {
      * @param name primary name of this command
      * @param aliases aliases which map back to this command
      */
-    public Command(String name, String... aliases)
-    {
+    public Command(String name, String... aliases) {
+
         this.name = name;
         this.aliases = aliases;
     }
