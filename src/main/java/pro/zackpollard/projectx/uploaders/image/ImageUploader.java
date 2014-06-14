@@ -7,25 +7,6 @@ import java.io.File;
 
 public abstract class ImageUploader extends Uploader {
 
-    private String key;
-    private String user;
-    private String password;
-
-    public void setKey(String key) {
-
-        this.key = key;
-    }
-
-    public void setUser(String user) {
-
-        this.user = user;
-    }
-
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-
     /**
      * This method is called in order to upload a File using the selected class.
      *
