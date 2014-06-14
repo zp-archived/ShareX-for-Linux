@@ -6,12 +6,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class NetworkRequest {
 
@@ -33,8 +35,7 @@ public class NetworkRequest {
      * @return This will return a Map<Key, Returned Value> of the responses
      * which will relate to the values returned by the POST statement.
      */
-    public Map<String, String> execute() {
-
+    private JSONObject run() {
         HttpClientBuilder buildClient = HttpClientBuilder.create();
         HttpClient client = buildClient.build();
         HttpPost post = new HttpPost(url);
@@ -49,17 +50,21 @@ public class NetworkRequest {
             e.printStackTrace();
         }
 
-        Map<String, String> responses = new HashMap<String, String>();
+        StringBuilder sb = new StringBuilder();
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(response.getEntity().getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(scanner.hasNext() && scanner != null) {
 
-        if(response != null) {
-            for (Header header : response.getAllHeaders()) {
-                responses.put(header.getName(), header.getValue());
-            }
-
-            return responses;
+            sb.append(scanner.next());
         }
 
-        return null;
+        JSONObject jsonMap = new JSONObject(sb.toString());
+
+        return jsonMap;
     }
 
     /**
