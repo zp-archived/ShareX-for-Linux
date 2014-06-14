@@ -1,5 +1,6 @@
 package pro.zackpollard.projectx;
 
+import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
 import pro.zackpollard.projectx.managers.CommandManager;
 import pro.zackpollard.projectx.utils.Logger;
@@ -16,6 +17,12 @@ public class ProjectX {
 
         registerCommands();
         initialiseVars();
+
+        if(args.length == 1) {
+
+            Command command = commandManager.getCommandWithName(args[0]);
+            command.execute();
+        }
     }
 
     /**
