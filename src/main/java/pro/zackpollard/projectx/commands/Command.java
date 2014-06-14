@@ -18,7 +18,7 @@ public abstract class Command {
     /**
      * Construct a new command.
      *
-     * @param name primary name of this command
+     * @param name    primary name of this command
      * @param aliases aliases which map back to this command
      */
     public Command(String name, String... aliases) {

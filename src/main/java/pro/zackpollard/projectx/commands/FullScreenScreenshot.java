@@ -11,7 +11,7 @@ import java.io.File;
 
 public class FullScreenScreenshot extends Command {
 
-    public FullScreenScreenshot(String name){
+    public FullScreenScreenshot(String name) {
 
         super(name);
     }

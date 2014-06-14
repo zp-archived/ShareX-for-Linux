@@ -13,12 +13,17 @@ public class ProjectX {
     private final CommandManager commandManager = new CommandManager(this);
     private final Logger logger = new Logger();
 
+    public static Robot getRobot() {
+
+        return ProjectX.robot;
+    }
+
     public void start(String[] args) {
 
         registerCommands();
         initialiseVars();
 
-        if(args.length == 1) {
+        if (args.length == 1) {
 
             Command command = commandManager.getCommandWithName(args[0]);
             command.execute();
@@ -44,11 +49,6 @@ public class ProjectX {
     private void registerCommands() {
 
         this.getCommandManager().registerCommand(new FullScreenScreenshot("fss"));
-    }
-
-    public static Robot getRobot() {
-
-        return ProjectX.robot;
     }
 
     public Logger getLogger() {

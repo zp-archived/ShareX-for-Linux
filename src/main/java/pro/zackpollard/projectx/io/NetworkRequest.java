@@ -57,7 +57,7 @@ public class NetworkRequest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while(scanner.hasNext() && scanner != null) {
+        while (scanner.hasNext() && scanner != null) {
 
             sb.append(scanner.next());
         }
@@ -70,7 +70,7 @@ public class NetworkRequest {
     /**
      * This method is called to add a string value against a key to the POST request.
      *
-     * @param key The key for that string value.
+     * @param key   The key for that string value.
      * @param value The string value you want to send.
      */
     public void addPostString(String key, String value) {
@@ -81,7 +81,7 @@ public class NetworkRequest {
     /**
      * This method is called to add a file against a key to the POST request.
      *
-     * @param key The string key for that file value.
+     * @param key  The string key for that file value.
      * @param file The file you would like to POST.
      */
     public void addPostFile(String key, File file) {

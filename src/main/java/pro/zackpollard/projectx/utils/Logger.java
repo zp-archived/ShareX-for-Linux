@@ -8,22 +8,9 @@ public class Logger {
     }
 
     /**
-     * Enum of the various levels the logs can be sent at.
-     */
-    public enum LoggerLevel {
-
-        INFO,
-        WARNING,
-        ALERT,
-        ERROR,
-        FATAL,
-        DEBUG
-    }
-
-    /**
      * Log with the required level and can provide a message.
      *
-     * @param level The LoggerLevel of that message, will be reflected in the logger output.
+     * @param level   The LoggerLevel of that message, will be reflected in the logger output.
      * @param message The message that should accompany the logger level in the output.
      */
     public void log(LoggerLevel level, String message) {
@@ -34,9 +21,9 @@ public class Logger {
     /**
      * Log with the required level and can provide a message.
      *
-     * @param level The LoggerLevel of that message, will be reflected in the logger output.
+     * @param level   The LoggerLevel of that message, will be reflected in the logger output.
      * @param message The message that should accompany the logger level in the output.
-     * @param e The exception that was provided with that error, is not required.
+     * @param e       The exception that was provided with that error, is not required.
      */
     public void log(LoggerLevel level, String message, Exception e) {
 
@@ -66,7 +53,7 @@ public class Logger {
      */
     private void printException(Exception e) {
 
-        if(e != null) {
+        if (e != null) {
 
             e.printStackTrace();
         }
@@ -90,5 +77,18 @@ public class Logger {
     public boolean getDebug() {
 
         return debug;
+    }
+
+    /**
+     * Enum of the various levels the logs can be sent at.
+     */
+    public enum LoggerLevel {
+
+        INFO,
+        WARNING,
+        ALERT,
+        ERROR,
+        FATAL,
+        DEBUG
     }
 }

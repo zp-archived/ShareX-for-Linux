@@ -24,10 +24,10 @@ public class CommandManager {
      * @param command The command object that you want to register.
      */
     public void registerCommand(Command command) {
-        if(!commandMap.containsKey(command.getName().toLowerCase())) {
+        if (!commandMap.containsKey(command.getName().toLowerCase())) {
 
             commandMap.put(command.getName().toLowerCase(), command);
-            if(command.getAliases() != null) {
+            if (command.getAliases() != null) {
                 for (String alias : command.getAliases()) {
                     if (!commandMap.containsKey(alias.toLowerCase())) {
                         commandMap.put(alias.toLowerCase(), command);
