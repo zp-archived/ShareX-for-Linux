@@ -1,7 +1,5 @@
 package pro.zackpollard.projectx.utils;
 
-import com.sun.istack.internal.Nullable;
-
 public class Logger {
 
     private boolean debug;
