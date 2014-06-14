@@ -26,8 +26,8 @@ public class ImageUploadManager {
         //TODO: Save new uploader back to config
     }
 
-    public Uploader getUploader() {
+    public ImageUploader getUploader() {
 
-
+        return this.getUploader();
     }
 }
