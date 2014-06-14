@@ -4,6 +4,7 @@ import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.utils.Logger;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class CommandManager {
      * @param name The name or an alias of the command that is required.
      * @return The Command object associated with that name or alias. Will return null if command name is not found.
      */
+    @Nullable
     public Command getCommandWithName(String name) {
 
         return commandMap.get(name.toLowerCase());
