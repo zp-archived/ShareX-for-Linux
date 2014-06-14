@@ -27,15 +27,17 @@ public class CommandManager {
         if(!commandMap.containsKey(command.getName().toLowerCase())) {
 
             commandMap.put(command.getName().toLowerCase(), command);
-            for(String alias : command.getAliases()) {
-                if(!commandMap.containsKey(alias.toLowerCase())) {
-                    commandMap.put(alias.toLowerCase(), command);
-                } else {
+            if(command.getAliases() != null) {
+                for (String alias : command.getAliases()) {
+                    if (!commandMap.containsKey(alias.toLowerCase())) {
+                        commandMap.put(alias.toLowerCase(), command);
+                    } else {
 
-                    instance.getLogger().log(Logger.LoggerLevel.WARNING,
-                            String.format(
-                                    "A class with name %s tried to register an alias that has already been registered!",
-                                    command.getActualName()));
+                        instance.getLogger().log(Logger.LoggerLevel.WARNING,
+                                String.format(
+                                        "A class with name %s tried to register an alias that has already been registered!",
+                                        command.getActualName()));
+                    }
                 }
             }
         } else {

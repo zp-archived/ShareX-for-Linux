@@ -32,6 +32,5 @@ public class FullScreenScreenshot extends Command {
         SaveImage.saveImage(image, new File("./images/" + Utils.generateFileName("png")), ImageFormat.PNG);
 
         //TODO: Push this upstream to a server (Configurable).
-        //TODO: Save this to disk (Configurable).
     }
 }
