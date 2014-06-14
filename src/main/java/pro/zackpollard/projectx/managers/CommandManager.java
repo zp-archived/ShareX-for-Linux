@@ -1,6 +1,7 @@
 package pro.zackpollard.projectx.managers;
 
-import com.sun.istack.internal.Nullable;
+import javax.annotation.Nullable;
+
 import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.utils.Logger;
