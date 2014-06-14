@@ -3,6 +3,7 @@ package pro.zackpollard.projectx.commands;
 import pro.zackpollard.projectx.ProjectX;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class FullScreenScreenshot extends Command {
 
@@ -17,7 +18,7 @@ public class FullScreenScreenshot extends Command {
         Robot robot = ProjectX.getRobot();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-        robot.createScreenCapture(new Rectangle(0, 0,
+        BufferedImage image = robot.createScreenCapture(new Rectangle(0, 0,
                 (int) toolkit.getScreenSize().getWidth(),
                 (int) toolkit.getScreenSize().getHeight()));
 
