@@ -17,14 +17,14 @@ import java.util.Scanner;
 
 public class NetworkRequest {
 
-    private final String USER_AGENT;
+    //TODO: Set the User Agent
+    private final String USER_AGENT = "";
     private final String url;
     private final MultipartEntityBuilder urlParameters = MultipartEntityBuilder.create();
 
 
-    public NetworkRequest(String userAgent, String url) {
+    public NetworkRequest(String url) {
 
-        this.USER_AGENT = userAgent;
         this.url = url;
     }
 

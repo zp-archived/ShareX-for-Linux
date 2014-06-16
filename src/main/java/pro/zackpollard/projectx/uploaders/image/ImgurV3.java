@@ -1,5 +1,6 @@
 package pro.zackpollard.projectx.uploaders.image;
 
+import pro.zackpollard.projectx.io.NetworkRequest;
 import pro.zackpollard.projectx.uploaders.UploadStatus;
 
 import java.io.File;
@@ -8,7 +9,11 @@ public class ImgurV3 extends ImageUploader {
     @Override
     public String upload(File file) {
 
-        return null;
+        NetworkRequest request = new NetworkRequest("https://api.imgur.com/3/image");
+
+        request.addPostFile("image", file);
+
+        
     }
 
     @Override
