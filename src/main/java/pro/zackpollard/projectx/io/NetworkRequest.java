@@ -1,6 +1,8 @@
 package pro.zackpollard.projectx.io;
 
+import com.sun.net.httpserver.Headers;
 import org.apache.http.Header;
+import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -10,22 +12,27 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class NetworkRequest {
 
     //TODO: Set the User Agent
-    private final String USER_AGENT = "";
+    private final String userAgent;
     private final String url;
     private final MultipartEntityBuilder urlParameters = MultipartEntityBuilder.create();
+    private final String header;
 
 
-    public NetworkRequest(String url) {
+    public NetworkRequest(String url, String userAgent) {
+
+        this(url, userAgent, null);
+    }
+
+    public NetworkRequest(String url, String userAgent, String header) {
 
         this.url = url;
+        this.header = header;
+        this.userAgent = userAgent;
     }
 
     /**
@@ -40,7 +47,9 @@ public class NetworkRequest {
         HttpClient client = buildClient.build();
         HttpPost post = new HttpPost(url);
 
-        post.setHeader("User-Agent", USER_AGENT);
+        //TODO: Add headers to the header.
+
+        post.setHeader("User-Agent", userAgent);
         post.setEntity(urlParameters.build());
         HttpResponse response = null;
 

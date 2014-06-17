@@ -13,7 +13,7 @@ public class ImgurV3 extends ImageUploader {
 
         request.addPostFile("image", file);
 
-        
+        return null;
     }
 
     @Override
