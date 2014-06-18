@@ -33,6 +33,7 @@ public class NetworkRequest {
         this.url = url;
         this.header = header;
         this.userAgent = userAgent;
+
     }
 
     /**
