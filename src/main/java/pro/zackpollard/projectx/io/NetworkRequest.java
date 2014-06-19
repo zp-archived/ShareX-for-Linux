@@ -33,7 +33,6 @@ public class NetworkRequest {
         this.url = url;
         this.header = header;
         this.userAgent = userAgent;
-
     }
 
     /**
@@ -49,6 +48,7 @@ public class NetworkRequest {
         HttpPost post = new HttpPost(url);
 
         //TODO: Add headers to the header.
+        //TODO: Should fix this soon...
 
         post.setHeader("User-Agent", userAgent);
         post.setEntity(urlParameters.build());
