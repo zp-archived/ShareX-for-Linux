@@ -2,19 +2,16 @@ package pro.zackpollard.projectx;
 
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
-import pro.zackpollard.projectx.config.Config;
 import pro.zackpollard.projectx.managers.CommandManager;
 import pro.zackpollard.projectx.utils.Logger;
 
 import java.awt.*;
-import java.io.File;
 
 public class ProjectX {
 
     private static Robot robot;
     private final CommandManager commandManager = new CommandManager(this);
     private final Logger logger = new Logger();
-    private final Config config = new Config();
 
     public static Robot getRobot() {
 
@@ -23,8 +20,6 @@ public class ProjectX {
 
     public void start(String[] args) {
 
-        this.config.saveDefaultConfig();
-        this.config.loadConfiguration(new File("config.json"), this.logger);
         registerCommands();
         initialiseVars();
 
