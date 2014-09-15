@@ -4,8 +4,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
 import pro.zackpollard.projectx.uploaders.Uploader;
 
 import java.io.File;
@@ -16,8 +14,7 @@ import java.util.Map;
 /**
  * @author DarkSeraphim
  */
-public class POSTRequest extends NetworkRequest
-{
+public class POSTRequest extends NetworkRequest {
 
     private HttpPost post;
 
@@ -28,11 +25,11 @@ public class POSTRequest extends NetworkRequest
 
     private final void init(File file) {
         this.post = new HttpPost(this.uploader.getUrl());
-        for(Map.Entry<String, String> header : this.uploader.getOptionalHeaders().entrySet()) {
+        for (Map.Entry<String, String> header : this.uploader.getOptionalHeaders().entrySet()) {
             this.post.addHeader(header.getKey(), header.getValue());
         }
 
-        for(Map.Entry<String, String> kvpair : this.uploader.getOptionalParams().entrySet()) {
+        for (Map.Entry<String, String> kvpair : this.uploader.getOptionalParams().entrySet()) {
             this.urlParameters.addTextBody(kvpair.getKey(), kvpair.getValue());
         }
         this.urlParameters.addBinaryBody(this.uploader.getFile(), file);
@@ -51,7 +48,7 @@ public class POSTRequest extends NetworkRequest
             in = response.getEntity().getContent();
             byte[] buf = new byte[16];
             int len;
-            while((len = in.read(buf)) > 0) {
+            while ((len = in.read(buf)) > 0) {
                 sb.append(new String(buf, 0, len));
             }
         } catch (IOException e) {
@@ -59,9 +56,9 @@ public class POSTRequest extends NetworkRequest
             return null;
         } finally {
             try {
-                if(in != null)
+                if (in != null)
                     in.close();
-            } catch(IOException ex) {
+            } catch (IOException ex) {
             }
         }
         return sb.toString();

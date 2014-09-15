@@ -1,6 +1,5 @@
 package pro.zackpollard.projectx.io.image;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

@@ -20,7 +20,7 @@ public class Regex {
 
     public String replace(String response) {
         Matcher m = regex.matcher(response);
-        if(!m.matches()) {
+        if (!m.matches()) {
             return response;
         }
         return m.replaceAll(this.replacement);

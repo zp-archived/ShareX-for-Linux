@@ -1,9 +1,7 @@
 package pro.zackpollard.projectx.uploaders.image;
 
 import lombok.Setter;
-import org.json.JSONObject;
 import pro.zackpollard.projectx.io.NetworkRequest;
-import pro.zackpollard.projectx.io.POSTRequest;
 import pro.zackpollard.projectx.uploaders.UploadStatus;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.utils.Regex;
@@ -34,10 +32,10 @@ public class ImageUploader extends Uploader {
      */
     public String upload(File file) {
         String response = NetworkRequest.createRequest(this, file).run();
-        if(response == null) {
+        if (response == null) {
             return null;
         }
-        for(Regex filter : this.getResponseFilter()) {
+        for (Regex filter : this.getResponseFilter()) {
             response = filter.replace(response);
         }
         return this.imageResponse.replace("%response%", response);

@@ -1,7 +1,6 @@
 package pro.zackpollard.projectx.managers;
 
 import pro.zackpollard.projectx.ProjectX;
-import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.uploaders.image.ImageUploader;
 
 public class ImageUploadManager {
@@ -15,6 +14,11 @@ public class ImageUploadManager {
         //TODO: Get selected uploader from config.
     }
 
+    public ImageUploader getUploader() {
+
+        return this.getUploader();
+    }
+
     /**
      * This will change the current uploader to the new uploader selected by the user.
      *
@@ -24,10 +28,5 @@ public class ImageUploadManager {
 
         this.selectedUploader = uploader;
         //TODO: Save new uploader back to config
-    }
-
-    public ImageUploader getUploader() {
-
-        return this.getUploader();
     }
 }

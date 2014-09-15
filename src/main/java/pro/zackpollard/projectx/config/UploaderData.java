@@ -1,7 +1,6 @@
 package pro.zackpollard.projectx.config;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +10,7 @@ import pro.zackpollard.projectx.uploaders.image.ImageUploader;
 import pro.zackpollard.projectx.utils.ParserData;
 import pro.zackpollard.projectx.utils.Regex;
 
-import java.util.*;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -34,13 +33,13 @@ public class UploaderData extends ConfigurableData<Uploader> {
     public Uploader parse(JSONObject json) {
         String name = json.getString("name");
         Uploader.Type type = Uploader.Type.getType(json.getString("type"));
-        if(type == Uploader.Type.UNKNOWN) {
+        if (type == Uploader.Type.UNKNOWN) {
             this.throwError(new IllegalArgumentException("Invalid API type"));
             return null;
         }
 
         Uploader uploader = null;
-        switch(type) {
+        switch (type) {
             case IMAGE:
                 uploader = new ImageUploader(name);
                 this.loadImageUploader((ImageUploader) uploader, json);
@@ -57,24 +56,24 @@ public class UploaderData extends ConfigurableData<Uploader> {
         addFilters(uploader, json);
 
         JSONObject optHeaders = json.getJSONObject("optional-headers");
-        if(optHeaders != null) {
+        if (optHeaders != null) {
             Object key;
             Object value;
-            for(Iterator it = optHeaders.keys(); it.hasNext();) {
+            for (Iterator it = optHeaders.keys(); it.hasNext(); ) {
                 key = it.next();
-                if(key instanceof String && (value = optHeaders.getString((String)key)) != null) {
+                if (key instanceof String && (value = optHeaders.getString((String) key)) != null) {
                     uploader.addOptionalHeader((String) key, (String) value);
                 }
             }
         }
 
         JSONObject optParams = json.getJSONObject("optional-parameters");
-        if(optHeaders != null) {
+        if (optHeaders != null) {
             Object key;
             Object value;
-            for(Iterator it = optParams.keys(); it.hasNext();) {
+            for (Iterator it = optParams.keys(); it.hasNext(); ) {
                 key = it.next();
-                if(key instanceof String && (value = optParams.getString((String)key)) != null) {
+                if (key instanceof String && (value = optParams.getString((String) key)) != null) {
                     uploader.addOptionalParam((String) key, (String) value);
                 }
             }
@@ -83,8 +82,7 @@ public class UploaderData extends ConfigurableData<Uploader> {
         return uploader;
     }
 
-    private void loadImageUploader(ImageUploader uploader, JSONObject object)
-    {
+    private void loadImageUploader(ImageUploader uploader, JSONObject object) {
         JSONObject formats = object.getJSONObject("response-format");
         if (formats == null) {
             return;
@@ -113,31 +111,29 @@ public class UploaderData extends ConfigurableData<Uploader> {
 
     private String getString(JSONObject json, String key) {
         String value = json.getString(key);
-        if(value == null) {
+        if (value == null) {
             this.throwError(new IllegalArgumentException(String.format("Invalid/missing option '%s'.", key)));
         }
         return value;
     }
 
-    private void addFilters(Uploader uploader, JSONObject json)
-    {
+    private void addFilters(Uploader uploader, JSONObject json) {
         JSONArray array = json.getJSONArray("response-filters");
-        if(array == null || array.length() == 0) {
+        if (array == null || array.length() == 0) {
             return;
         }
         Pattern pattern;
         String regex, replacement;
-        for(int i = 0; i < array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
             JSONObject object = array.getJSONObject(i);
-            if((regex = object.optString("regex")) != null && (replacement = object.optString("replacement")) != null) {
+            if ((regex = object.optString("regex")) != null && (replacement = object.optString("replacement")) != null) {
                 try {
                     pattern = Pattern.compile(regex);
                     uploader.addFilter(new Regex(pattern, replacement));
                 } catch (PatternSyntaxException ex) {
                     this.throwError(ex);
                 }
-            }
-            else {
+            } else {
                 this.throwError(new IllegalArgumentException("Invalid filter: missing regex and/or replacement."));
             }
         }

@@ -1,45 +1,29 @@
 package pro.zackpollard.projectx.io;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONObject;
 import pro.zackpollard.projectx.uploaders.Uploader;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public abstract class NetworkRequest {
 
-    public enum Method {
-        GET,
-        POST;
-
-        private static final Map<String, Method> byName = new HashMap<String, Method>();
-
-        static {
-            for(Method m : Method.values()) {
-                byName.put(m.name().toUpperCase(), m);
-            }
-        }
-
-        public static Method getMethod(String name) {
-            Method m = Method.byName.get(name.toUpperCase());
-            return m != null ? m : GET;
-        }
-    }
-
     protected final MultipartEntityBuilder urlParameters = MultipartEntityBuilder.create();
-
     protected final Uploader uploader;
 
     public NetworkRequest(Uploader uploader) {
         this.uploader = uploader;
+    }
+
+    public static NetworkRequest createRequest(Uploader uploader, File file) {
+
+        switch (uploader.getMethod()) {
+            case POST:
+                return new POSTRequest(uploader, file);
+            default:
+                throw new UnsupportedOperationException("Unsupported HTTP method");
+        }
     }
 
     /**
@@ -73,13 +57,21 @@ public abstract class NetworkRequest {
         urlParameters.addBinaryBody(key, file);
     }
 
-    public static NetworkRequest createRequest(Uploader uploader, File file) {
+    public enum Method {
+        GET,
+        POST;
 
-        switch(uploader.getMethod()) {
-            case POST:
-                return new POSTRequest(uploader, file);
-            default:
-                throw new UnsupportedOperationException("Unsupported HTTP method");
+        private static final Map<String, Method> byName = new HashMap<String, Method>();
+
+        static {
+            for (Method m : Method.values()) {
+                byName.put(m.name().toUpperCase(), m);
+            }
+        }
+
+        public static Method getMethod(String name) {
+            Method m = Method.byName.get(name.toUpperCase());
+            return m != null ? m : GET;
         }
     }
 }
