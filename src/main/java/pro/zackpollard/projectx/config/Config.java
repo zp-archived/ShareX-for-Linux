@@ -15,6 +15,8 @@ import java.util.*;
  */
 public class Config {
 
+    //TODO: Currently one config for all uploaders, this should be changed to one config per uploader in the future.
+
     private final File configFile = new File("config.json");
 
     private Map<Uploader.Type, Collection<Uploader>> byType = new EnumMap<Uploader.Type, Collection<Uploader>>(Uploader.Type.class);
