@@ -69,6 +69,11 @@ public class Logger {
         return this.debug = !this.debug;
     }
 
+    public void setDebug(boolean debug) {
+
+        this.debug = debug;
+    }
+
     /**
      * Used to get whether the logger is in debug state or not.
      *
