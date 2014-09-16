@@ -8,7 +8,7 @@ import pro.zackpollard.projectx.utils.Regex;
 
 import java.io.File;
 
-public class ImageUploader extends Uploader {
+public abstract class ImageUploader extends Uploader {
 
     @Setter
     private String imageResponse;
@@ -39,20 +39,5 @@ public class ImageUploader extends Uploader {
             response = filter.replace(response);
         }
         return this.imageResponse.replace("%response%", response);
-    }
-
-    @Override
-    public UploadStatus testConnection() {
-        return null;
-    }
-
-    @Override
-    public boolean isSetup() {
-        return false;
-    }
-
-    @Override
-    public void runSetup() {
-
     }
 }
