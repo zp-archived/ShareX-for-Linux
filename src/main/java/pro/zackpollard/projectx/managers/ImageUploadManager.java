@@ -19,7 +19,6 @@ public class ImageUploadManager {
     public ImageUploadManager(ProjectX instance) {
 
         this.instance = instance;
-	    this.initiateUploaders();
         //TODO: Get selected uploader from config.
 
 	    //TODO: Remove this once the GUI or there is ability to change this through CLI.
@@ -46,10 +45,6 @@ public class ImageUploadManager {
 	/**
 	 * When a new ImageUploader is created, it should be added here with the name that it should have in the GUI. This makes it available for selection.
 	 */
-	private void initiateUploaders() {
-
-		new CustomImageUploader(instance, "Custom");
-	}
 
 	public Map<String, ImageUploader> getImageUploaders() {
 
