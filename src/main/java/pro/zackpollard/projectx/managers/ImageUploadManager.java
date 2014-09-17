@@ -1,13 +1,10 @@
 package pro.zackpollard.projectx.managers;
 
 import pro.zackpollard.projectx.ProjectX;
-import pro.zackpollard.projectx.uploaders.image.CustomImageUploader;
 import pro.zackpollard.projectx.uploaders.image.ImageUploader;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class ImageUploadManager {
 

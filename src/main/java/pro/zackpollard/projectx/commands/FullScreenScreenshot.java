@@ -5,7 +5,6 @@ import pro.zackpollard.projectx.io.image.ImageFormat;
 import pro.zackpollard.projectx.io.image.SaveImage;
 import pro.zackpollard.projectx.utils.Utils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;

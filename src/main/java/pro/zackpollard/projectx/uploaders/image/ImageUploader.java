@@ -3,7 +3,6 @@ package pro.zackpollard.projectx.uploaders.image;
 import lombok.Setter;
 import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.NetworkRequest;
-import pro.zackpollard.projectx.uploaders.UploadStatus;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.utils.Regex;
 
