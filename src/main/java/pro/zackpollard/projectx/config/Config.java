@@ -1,8 +1,10 @@
 package pro.zackpollard.projectx.config;
 
+import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.utils.Logger;
 import pro.zackpollard.projectx.utils.ParserData;
@@ -13,11 +15,14 @@ import java.util.*;
 /**
  * @author DarkSeraphim
  */
+@RequiredArgsConstructor
 public class Config {
 
     //TODO: Currently one config for all uploaders, this should be changed to one config per uploader in the future.
 
     private final File configFile = new File("config.json");
+
+	private final ProjectX projectX;
 
     private Map<Uploader.Type, Collection<Uploader>> byType = new EnumMap<Uploader.Type, Collection<Uploader>>(Uploader.Type.class);
 
@@ -80,7 +85,7 @@ public class Config {
 
     public void loadConfiguration(File configFile, Logger logger) {
         String json = loadConfigurationAsString(configFile);
-	    System.out.println(json);
+	    projectX.getLogger().log(Logger.LoggerLevel.DEBUG, json);
         JSONObject object;
         try {
             object = new JSONObject(json);
