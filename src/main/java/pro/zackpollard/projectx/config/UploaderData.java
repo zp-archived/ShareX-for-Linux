@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.NetworkRequest;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.uploaders.image.ImageUploader;
@@ -21,6 +22,7 @@ import java.util.regex.PatternSyntaxException;
 public class UploaderData extends ConfigurableData<Uploader> {
 
     private static UploaderData instance;
+	private ProjectX projectX;
 
     private static UploaderData getInstance() {
         return instance != null ? instance : (instance = new UploaderData());
@@ -41,7 +43,7 @@ public class UploaderData extends ConfigurableData<Uploader> {
         Uploader uploader = null;
         switch (type) {
             case IMAGE:
-                uploader = new ImageUploader(name);
+                uploader = projectX.getImageUploadManager().getUploader();
                 this.loadImageUploader((ImageUploader) uploader, json);
                 break;
             default:
