@@ -1,18 +1,24 @@
 package pro.zackpollard.projectx.commands;
 
+import lombok.Getter;
+import pro.zackpollard.projectx.ProjectX;
+
 public abstract class Command {
 
     private final String name;
     private final String[] aliases;
+
+	@Getter
+	private ProjectX projectX;
 
     /**
      * Construct a new command with no permissions or aliases.
      *
      * @param name the name of this command
      */
-    public Command(String name) {
+    public Command(ProjectX projectX, String name) {
 
-        this(name, null);
+        this(projectX, name, null);
     }
 
     /**
@@ -21,10 +27,11 @@ public abstract class Command {
      * @param name    primary name of this command
      * @param aliases aliases which map back to this command
      */
-    public Command(String name, String... aliases) {
+    public Command(ProjectX projectX, String name, String... aliases) {
 
         this.name = name;
         this.aliases = aliases;
+	    this.projectX = projectX;
     }
 
     /**
@@ -32,10 +39,6 @@ public abstract class Command {
      *
      * @return The command name that was set for this Command.
      */
-    public String getName() {
-
-        return name;
-    }
 
     /**
      * Used to get the aliases of this Command.

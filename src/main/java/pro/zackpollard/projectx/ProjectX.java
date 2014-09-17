@@ -58,7 +58,7 @@ public class ProjectX {
      */
     private void registerCommands() {
 
-        this.getCommandManager().registerCommand(new FullScreenScreenshot("fss"));
+        this.getCommandManager().registerCommand(new FullScreenScreenshot(this, "fss"));
     }
 
     public Logger getLogger() {
