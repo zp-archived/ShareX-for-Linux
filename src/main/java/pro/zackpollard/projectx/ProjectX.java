@@ -4,6 +4,7 @@ import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
 import pro.zackpollard.projectx.config.Config;
 import pro.zackpollard.projectx.managers.CommandManager;
+import pro.zackpollard.projectx.managers.ImageUploadManager;
 import pro.zackpollard.projectx.utils.Logger;
 
 import java.awt.*;
@@ -15,6 +16,8 @@ public class ProjectX {
     private final CommandManager commandManager = new CommandManager(this);
     private final Logger logger = new Logger();
     private final Config config = new Config();
+
+	private ImageUploadManager imageUploadManager;
 
     public static Robot getRobot() {
 
@@ -45,6 +48,8 @@ public class ProjectX {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+
+	    this.imageUploadManager = new ImageUploadManager(this);
     }
 
     /**
@@ -65,4 +70,9 @@ public class ProjectX {
 
         return this.commandManager;
     }
+
+	public ImageUploadManager getImageUploadManager() {
+
+		return imageUploadManager;
+	}
 }
