@@ -40,6 +40,11 @@ public abstract class Command {
      * @return The command name that was set for this Command.
      */
 
+	public String getName() {
+
+		return this.name;
+	}
+
     /**
      * Used to get the aliases of this Command.
      *
