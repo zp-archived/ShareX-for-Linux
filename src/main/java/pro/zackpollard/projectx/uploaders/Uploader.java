@@ -1,9 +1,9 @@
 package pro.zackpollard.projectx.uploaders;
 
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.NetworkRequest;
 import pro.zackpollard.projectx.utils.Regex;
 
@@ -12,6 +12,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public abstract class Uploader {
 
+	@Getter
+	private final ProjectX projectX;
     @Getter
     private final String name;
     @Getter
