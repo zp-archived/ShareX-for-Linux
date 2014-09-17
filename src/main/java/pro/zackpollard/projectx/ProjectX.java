@@ -30,6 +30,7 @@ public class ProjectX {
         this.config.saveDefaultConfig();
         this.config.loadConfiguration(new File("config.json"), this.logger);
         registerCommands();
+	    registerUploaders();
         initialiseVars();
 
         if (args.length == 1) {
