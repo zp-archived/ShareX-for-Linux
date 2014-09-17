@@ -18,19 +18,13 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author DarkSeraphim
  */
-
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class UploaderData extends ConfigurableData<Uploader> {
 
     private static UploaderData instance;
-	private static ProjectX projectX;
-
-	public UploaderData(ProjectX projectX) {
-
-		this.projectX = projectX;
-	}
 
     private static UploaderData getInstance() {
-        return instance != null ? instance : (instance = new UploaderData(projectX));
+        return instance != null ? instance : (instance = new UploaderData());
     }
 
     public static ParserData<Uploader> loadAPI(JSONObject object) {
@@ -48,7 +42,7 @@ public class UploaderData extends ConfigurableData<Uploader> {
         Uploader uploader;
         switch (type) {
             case IMAGE:
-                uploader = projectX.getImageUploadManager().getUploader();
+                uploader = ProjectX.getInstance().getImageUploadManager().getUploader();
                 this.loadImageUploader((ImageUploader) uploader, json);
                 break;
             default:
