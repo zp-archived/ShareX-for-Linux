@@ -80,6 +80,7 @@ public class Config {
 
     public void loadConfiguration(File configFile, Logger logger) {
         String json = loadConfigurationAsString(configFile);
+	    System.out.println(json);
         JSONObject object;
         try {
             object = new JSONObject(json);
