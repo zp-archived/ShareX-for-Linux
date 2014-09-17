@@ -60,7 +60,7 @@ public class Config {
 			// Well fuck it, we need that config file
 			// The error should give them plenty of
 			// information to fix it
-			ex.printStackTrace();
+			projectX.getLogger().log(Logger.LoggerLevel.DEBUG, "There was an error when saving the default config.", ex);
 			System.exit(-1);
 		}
 
