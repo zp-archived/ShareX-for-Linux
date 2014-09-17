@@ -104,9 +104,10 @@ public class Config {
 
 		String header = "Error(s) and/or warning(s) occurred while parsing the config";
 		ParserData<Uploader> pd;
+        UploaderData data = new UploaderData();
 		for (int i = 0; i < apis.length(); i++) {
 			JSONObject apiData = apis.getJSONObject(i);
-			pd = UploaderData.loadAPI(apiData);
+			pd = data.load(apiData);
 			if (pd.wasSuccessful()) {
 				if (!registerUploader(pd.getResult())) {
 					if (header != null) {

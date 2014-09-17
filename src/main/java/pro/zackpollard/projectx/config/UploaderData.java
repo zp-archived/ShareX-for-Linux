@@ -18,18 +18,8 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author DarkSeraphim
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class UploaderData extends ConfigurableData<Uploader> {
-
-	private static UploaderData instance;
-
-	private static UploaderData getInstance() {
-		return instance != null ? instance : (instance = new UploaderData());
-	}
-
-	public static ParserData<Uploader> loadAPI(JSONObject object) {
-		return getInstance().load(object);
-	}
 
 	public Uploader parse(JSONObject json) {
 		String name = json.getString("name");
