@@ -66,6 +66,9 @@ public class ProjectX {
 	private void registerUploaders() {
 
 		this.getImageUploadManager().registerUploader(new CustomImageUploader(this, "Custom"));
+
+		//TODO: Remove this once the GUI or there is ability to change this through CLI.
+		this.getImageUploadManager().setUploader(this.getImageUploadManager().getImageUploaders().get("Custom"));
 	}
 
     public Logger getLogger() {

@@ -20,9 +20,6 @@ public class ImageUploadManager {
 
         this.instance = instance;
         //TODO: Get selected uploader from config.
-
-	    //TODO: Remove this once the GUI or there is ability to change this through CLI.
-	    this.setUploader(uploaderMap.get("Custom"));
     }
 
     public ImageUploader getUploader() {
