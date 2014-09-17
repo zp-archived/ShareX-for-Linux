@@ -14,7 +14,7 @@ public class ImageUploadManager {
     private ProjectX instance;
     private ImageUploader selectedUploader;
 
-	private Map<String, ImageUploader> uploaderMap = new HashMap<String, ImageUploader>();
+	private Map<String, ImageUploader> uploaderMap = new HashMap<>();
 
     public ImageUploadManager(ProjectX instance) {
 
