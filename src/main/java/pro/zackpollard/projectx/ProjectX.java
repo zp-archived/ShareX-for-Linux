@@ -28,7 +28,6 @@ public class ProjectX {
     public void start(String[] args) {
 
         this.config.saveDefaultConfig();
-        this.config.loadConfiguration(new File("config.json"), this.logger);
         registerCommands();
 	    registerUploaders();
         initialiseVars();
@@ -38,6 +37,8 @@ public class ProjectX {
             Command command = commandManager.getCommandWithName(args[0]);
             command.execute();
         }
+
+	    this.config.loadConfiguration(new File("config.json"), this.logger);
     }
 
     /**
