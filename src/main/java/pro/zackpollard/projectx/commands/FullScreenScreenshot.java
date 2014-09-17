@@ -5,15 +5,16 @@ import pro.zackpollard.projectx.io.image.ImageFormat;
 import pro.zackpollard.projectx.io.image.SaveImage;
 import pro.zackpollard.projectx.utils.Utils;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class FullScreenScreenshot extends Command {
 
-    public FullScreenScreenshot(String name) {
+    public FullScreenScreenshot(ProjectX projectX, String name) {
 
-        super(name);
+        super(projectX, name);
     }
 
     @Override
@@ -29,7 +30,11 @@ public class FullScreenScreenshot extends Command {
         //TODO: Make the image saving configurable
         //TODO: Make the image saving location configurable
 
-        SaveImage.saveImage(image, new File("./images/" + Utils.generateFileName("png")), ImageFormat.PNG);
+	    File file =  new File("./images/" + Utils.generateFileName("png"));
+
+        SaveImage.saveImage(image, file, ImageFormat.PNG);
+
+	    super.getProjectX().getImageUploadManager().getUploader().upload(file);
 
         //TODO: Push this upstream to a server (Configurable).
     }
