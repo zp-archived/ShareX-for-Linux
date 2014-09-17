@@ -38,11 +38,11 @@
 # Also makes them more readable and easier
 # to fix in case of issues :3
 {
-"regex": "{\"key\":\"(.*?)\"}",
+"regex": "\\{\"key\":\"(.*?)\"\\}",
 "replacement": "$1"
 },
 {
-"regex": "{\"url\":\"(.*?)\"}",
+"regex": "\\{\"url\":\"(.*?)\"\\}",
 "replacement": "$1"
 }
 ],
@@ -56,7 +56,7 @@
 "image": "",
 "thumbnail": "",
 "delete": ""
-}
+},
 
 # If you need some more headers
 "optional-headers":
