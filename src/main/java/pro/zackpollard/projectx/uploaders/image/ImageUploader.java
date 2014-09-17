@@ -1,6 +1,7 @@
 package pro.zackpollard.projectx.uploaders.image;
 
 import lombok.Setter;
+import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.NetworkRequest;
 import pro.zackpollard.projectx.uploaders.UploadStatus;
 import pro.zackpollard.projectx.uploaders.Uploader;
@@ -19,8 +20,9 @@ public abstract class ImageUploader extends Uploader {
     @Setter
     private String deleteResponse;
 
-    public ImageUploader(String name) {
-        super(name, Type.IMAGE);
+    public ImageUploader(ProjectX projectX, String name) {
+        super(projectX, name, Type.IMAGE);
+	    super.getProjectX().getImageUploadManager().addImageUploader(name, this);
     }
 
     /**
