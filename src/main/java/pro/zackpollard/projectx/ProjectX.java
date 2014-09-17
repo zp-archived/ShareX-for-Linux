@@ -1,5 +1,6 @@
 package pro.zackpollard.projectx;
 
+import lombok.Getter;
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
 import pro.zackpollard.projectx.config.Config;
@@ -19,12 +20,17 @@ public class ProjectX {
     private final Logger logger = new Logger();
     private final Config config = new Config(this);
 
+	@Getter
+	private static ProjectX instance;
+
     public static Robot getRobot() {
 
         return ProjectX.robot;
     }
 
     public void start(String[] args) {
+
+	    instance = this;
 
         registerCommands();
 	    registerUploaders();
