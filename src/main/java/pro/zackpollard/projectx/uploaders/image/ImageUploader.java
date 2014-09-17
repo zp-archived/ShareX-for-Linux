@@ -22,7 +22,6 @@ public abstract class ImageUploader extends Uploader {
 
     public ImageUploader(ProjectX projectX, String name) {
         super(projectX, name, Type.IMAGE);
-	    super.getProjectX().getImageUploadManager().addImageUploader(name, this);
     }
 
     /**

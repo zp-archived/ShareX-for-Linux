@@ -5,6 +5,7 @@ import pro.zackpollard.projectx.commands.FullScreenScreenshot;
 import pro.zackpollard.projectx.config.Config;
 import pro.zackpollard.projectx.managers.CommandManager;
 import pro.zackpollard.projectx.managers.ImageUploadManager;
+import pro.zackpollard.projectx.uploaders.image.CustomImageUploader;
 import pro.zackpollard.projectx.utils.Logger;
 
 import java.awt.*;
@@ -60,6 +61,11 @@ public class ProjectX {
 
         this.getCommandManager().registerCommand(new FullScreenScreenshot(this, "fss"));
     }
+
+	private void registerUploaders() {
+
+		this.getImageUploadManager().registerUploader(new CustomImageUploader(this, "Custom"));
+	}
 
     public Logger getLogger() {
 

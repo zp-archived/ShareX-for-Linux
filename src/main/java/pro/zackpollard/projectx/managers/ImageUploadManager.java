@@ -51,13 +51,13 @@ public class ImageUploadManager {
 		new CustomImageUploader(instance, "Custom");
 	}
 
-	public void addImageUploader(String name, ImageUploader uploader) {
-
-		this.uploaderMap.put(name, uploader);
-	}
-
 	public Map<String, ImageUploader> getImageUploaders() {
 
 		return this.uploaderMap;
+	}
+
+	public void registerUploader(ImageUploader uploader) {
+
+		this.uploaderMap.put(uploader.getName(), uploader);
 	}
 }
