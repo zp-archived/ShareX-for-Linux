@@ -1,31 +1,31 @@
 {
-    "apis":[
+    "apis": [
         {
-            "name":"zack bb",
-            "type":"image",
-            "url":"http://zackpollard.com/imageapi/",
-            "method":"POST",
-            "file":"",
-            "response-filter":[
+            "name": "zack bb",
+            "type": "image",
+            "url": "http://zackpollard.com/imageapi/",
+            "method": "POST",
+            "file": "",
+            "response-filter": [
                 {
-                    "regex":"\\{\"key\":\"(.*?)\"\\}",
-                    "replacement":"$1"
+                    "regex": "\\{\"key\":\"(.*?)\"\\}",
+                    "replacement": "$1"
                 },
                 {
-                    "regex":"\\{\"url\":\"(.*?)\"\\}",
-                    "replacement":"$1"
+                    "regex": "\\{\"url\":\"(.*?)\"\\}",
+                    "replacement": "$1"
                 }
             ],
-            "response-format":{
-                "image":"",
-                "thumbnail":"",
-                "delete":""
+            "response-format": {
+                "image": "",
+                "thumbnail": "",
+                "delete": ""
             },
-            "optional-headers":{
-                "opt":"value"
+            "optional-headers": {
+                "opt": "value"
             },
-            "optional-parameters":{
-                "key":"value"
+            "optional-parameters": {
+                "key": "value"
             }
         }
     ]

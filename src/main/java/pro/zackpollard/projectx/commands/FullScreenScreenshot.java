@@ -11,30 +11,30 @@ import java.io.File;
 
 public class FullScreenScreenshot extends Command {
 
-    public FullScreenScreenshot(ProjectX projectX, String name) {
+	public FullScreenScreenshot(ProjectX projectX, String name) {
 
-        super(projectX, name);
-    }
+		super(projectX, name);
+	}
 
-    @Override
-    public void execute() {
+	@Override
+	public void execute() {
 
-        Robot robot = ProjectX.getRobot();
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Robot robot = ProjectX.getRobot();
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-        BufferedImage image = robot.createScreenCapture(new Rectangle(0, 0,
-                (int) toolkit.getScreenSize().getWidth(),
-                (int) toolkit.getScreenSize().getHeight()));
+		BufferedImage image = robot.createScreenCapture(new Rectangle(0, 0,
+				(int) toolkit.getScreenSize().getWidth(),
+				(int) toolkit.getScreenSize().getHeight()));
 
-        //TODO: Make the image saving configurable
-        //TODO: Make the image saving location configurable
+		//TODO: Make the image saving configurable
+		//TODO: Make the image saving location configurable
 
-	    File file =  new File("./images/" + Utils.generateFileName("png"));
+		File file = new File("./images/" + Utils.generateFileName("png"));
 
-        SaveImage.saveImage(image, file, ImageFormat.PNG);
+		SaveImage.saveImage(image, file, ImageFormat.PNG);
 
-	    super.getProjectX().getImageUploadManager().getUploader().upload(file);
+		super.getProjectX().getImageUploadManager().getUploader().upload(file);
 
-        //TODO: Push this upstream to a server (Configurable).
-    }
+		//TODO: Push this upstream to a server (Configurable).
+	}
 }

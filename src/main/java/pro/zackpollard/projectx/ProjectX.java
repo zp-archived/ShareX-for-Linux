@@ -14,58 +14,57 @@ import java.io.File;
 
 public class ProjectX {
 
-    private static Robot robot;
-    private final CommandManager commandManager = new CommandManager(this);
-	private ImageUploadManager imageUploadManager = new ImageUploadManager(this);
-    private final Logger logger = new Logger();
-    private final Config config = new Config(this);
-
+	private static Robot robot;
 	@Getter
 	private static ProjectX instance;
+	private final CommandManager commandManager = new CommandManager(this);
+	private final Logger logger = new Logger();
+	private final Config config = new Config(this);
+	private ImageUploadManager imageUploadManager = new ImageUploadManager(this);
 
-    public static Robot getRobot() {
+	public static Robot getRobot() {
 
-        return ProjectX.robot;
-    }
+		return ProjectX.robot;
+	}
 
-    public void start(String[] args) {
+	public void start(String[] args) {
 
-	    instance = this;
+		instance = this;
 
-        registerCommands();
-	    registerUploaders();
-        initialiseVars();
+		registerCommands();
+		registerUploaders();
+		initialiseVars();
 
-        if (args.length == 1) {
+		if (args.length == 1) {
 
-            Command command = commandManager.getCommandWithName(args[0]);
-            command.execute();
-        }
+			Command command = commandManager.getCommandWithName(args[0]);
+			command.execute();
+		}
 
-	    this.config.saveDefaultConfig();
-	    this.config.loadConfiguration(new File("config.json"), this.logger);
-    }
+		this.config.saveDefaultConfig();
+		this.config.loadConfiguration(new File("config.json"), this.logger);
+	}
 
-    /**
-     * Initialise all variables in this bracket.
-     */
-    private void initialiseVars() {
+	/**
+	 * Initialise all variables in this bracket.
+	 */
+	private void initialiseVars() {
 
-        try {
-            ProjectX.robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			ProjectX.robot = new Robot();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Initialise all commands in this bracket.
-     * //TODO: Change this to a config based system so registration here is not needed to be done manually, and some can be disabled.
-     */
-    private void registerCommands() {
+	/**
+	 * Initialise all commands in this bracket.
+	 * //TODO: Change this to a config based system so registration here is not needed to be done manually, and some can be disabled.
+	 */
+	private void registerCommands() {
 
-        this.getCommandManager().registerCommand(new FullScreenScreenshot(this, "fss"));
-    }
+		this.getCommandManager().registerCommand(new FullScreenScreenshot(this, "fss"));
+	}
 
 	private void registerUploaders() {
 
@@ -75,15 +74,15 @@ public class ProjectX {
 		this.getImageUploadManager().setUploader(this.getImageUploadManager().getImageUploaders().get("Custom"));
 	}
 
-    public Logger getLogger() {
+	public Logger getLogger() {
 
-        return this.logger;
-    }
+		return this.logger;
+	}
 
-    public CommandManager getCommandManager() {
+	public CommandManager getCommandManager() {
 
-        return this.commandManager;
-    }
+		return this.commandManager;
+	}
 
 	public ImageUploadManager getImageUploadManager() {
 

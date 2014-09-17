@@ -8,32 +8,32 @@ import java.util.Map;
 
 public class ImageUploadManager {
 
-    private ProjectX instance;
-    private ImageUploader selectedUploader;
+	private ProjectX instance;
+	private ImageUploader selectedUploader;
 
 	private Map<String, ImageUploader> uploaderMap = new HashMap<>();
 
-    public ImageUploadManager(ProjectX instance) {
+	public ImageUploadManager(ProjectX instance) {
 
-        this.instance = instance;
-        //TODO: Get selected uploader from config.
-    }
+		this.instance = instance;
+		//TODO: Get selected uploader from config.
+	}
 
-    public ImageUploader getUploader() {
+	public ImageUploader getUploader() {
 
-        return this.selectedUploader;
-    }
+		return this.selectedUploader;
+	}
 
-    /**
-     * This will change the current uploader to the new uploader selected by the user.
-     *
-     * @param uploader The uploader that will be used.
-     */
-    public void setUploader(ImageUploader uploader) {
+	/**
+	 * This will change the current uploader to the new uploader selected by the user.
+	 *
+	 * @param uploader The uploader that will be used.
+	 */
+	public void setUploader(ImageUploader uploader) {
 
-        this.selectedUploader = uploader;
-        //TODO: Save new uploader back to config
-    }
+		this.selectedUploader = uploader;
+		//TODO: Save new uploader back to config
+	}
 
 
 	/**
