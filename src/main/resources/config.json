@@ -6,7 +6,7 @@
             "url": "http://zackpollard.com/imageapi/",
             "method": "POST",
             "file": "",
-            "response-filter": [
+            "response-filters": [
                 {
                     "regex": "\\{\"key\":\"(.*?)\"\\}",
                     "replacement": "$1"
