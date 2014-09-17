@@ -28,7 +28,7 @@ public class Config {
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
             while ((line = reader.readLine()) != null) {
-                line = reader.readLine().trim();
+                line = line.trim();
                 // Ignore comments
                 if (line.startsWith("#")) {
                     continue;
