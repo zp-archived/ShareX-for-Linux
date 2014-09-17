@@ -15,7 +15,7 @@ public class ProjectX {
     private static Robot robot;
     private final CommandManager commandManager = new CommandManager(this);
     private final Logger logger = new Logger();
-    private final Config config = new Config();
+    private final Config config = new Config(this);
 
 	private ImageUploadManager imageUploadManager;
 
