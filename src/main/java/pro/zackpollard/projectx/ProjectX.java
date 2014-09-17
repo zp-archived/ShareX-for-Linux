@@ -15,10 +15,9 @@ public class ProjectX {
 
     private static Robot robot;
     private final CommandManager commandManager = new CommandManager(this);
+	private ImageUploadManager imageUploadManager = new ImageUploadManager(this);
     private final Logger logger = new Logger();
     private final Config config = new Config(this);
-
-	private ImageUploadManager imageUploadManager;
 
     public static Robot getRobot() {
 
@@ -51,8 +50,6 @@ public class ProjectX {
         } catch (AWTException e) {
             e.printStackTrace();
         }
-
-	    this.imageUploadManager = new ImageUploadManager(this);
     }
 
     /**
