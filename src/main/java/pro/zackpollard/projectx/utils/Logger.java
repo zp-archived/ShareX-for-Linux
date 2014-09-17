@@ -2,10 +2,7 @@ package pro.zackpollard.projectx.utils;
 
 public class Logger {
 
-    private boolean debug;
-
-    public Logger() {
-    }
+    private boolean debug = false;
 
     /**
      * Log with the required level and can provide a message.
@@ -28,21 +25,23 @@ public class Logger {
     public void log(LoggerLevel level, String message, Exception e) {
 
         switch (level) {
-            case INFO:
-                System.out.println("INFO: " + message);
-            case WARNING:
-                System.out.println("WARNING: " + message);
-            case ALERT:
-                System.out.println("ALERT: " + message);
-            case ERROR:
-                this.printException(e);
-                System.out.println("ERROR: " + message);
-            case FATAL:
-                this.printException(e);
-                System.out.println("FATAL: " + message);
-            case DEBUG:
-                this.printException(e);
-                System.out.println("DEBUG: " + message);
+	        case INFO:
+		        System.out.println("INFO: " + message);
+	        case WARNING:
+		        System.out.println("WARNING: " + message);
+	        case ALERT:
+		        System.out.println("ALERT: " + message);
+	        case ERROR:
+		        this.printException(e);
+		        System.out.println("ERROR: " + message);
+	        case FATAL:
+		        this.printException(e);
+		        System.out.println("FATAL: " + message);
+	        case DEBUG:
+		        if (this.getDebug()) {
+			        this.printException(e);
+			        System.out.println("DEBUG: " + message);
+		        }
         }
     }
 
