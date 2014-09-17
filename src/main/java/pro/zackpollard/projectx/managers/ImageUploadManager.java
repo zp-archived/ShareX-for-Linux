@@ -24,7 +24,7 @@ public class ImageUploadManager {
 
     public ImageUploader getUploader() {
 
-        return this.getUploader();
+        return this.selectedUploader;
     }
 
     /**
