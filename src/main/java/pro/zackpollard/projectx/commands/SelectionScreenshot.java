@@ -79,7 +79,7 @@ public class SelectionScreenshot extends Command {
             }
         });
 
-        JOptionPane.showMessageDialog(null, panel);
+        //JOptionPane.showMessageDialog(null, panel);
 
         System.out.println("Rectangle of interest: " + captureRect);
     }
