@@ -1,101 +1,77 @@
 package pro.zackpollard.projectx.io;
 
-import com.sun.net.httpserver.Headers;
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONObject;
+import pro.zackpollard.projectx.uploaders.Uploader;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
-public class NetworkRequest {
+public abstract class NetworkRequest {
 
-    //TODO: Set the User Agent
-    private final String userAgent;
-    private final String url;
-    private final MultipartEntityBuilder urlParameters = MultipartEntityBuilder.create();
-    private final String header;
+	protected final MultipartEntityBuilder urlParameters = MultipartEntityBuilder.create();
+	protected final Uploader uploader;
 
+	public NetworkRequest(Uploader uploader) {
+		this.uploader = uploader;
+	}
 
-    public NetworkRequest(String url, String userAgent) {
+	public static NetworkRequest createRequest(Uploader uploader, File file) {
 
-        this(url, userAgent, null);
-    }
+		switch (uploader.getMethod()) {
+			case POST:
+				return new POSTRequest(uploader, file);
+			default:
+				throw new UnsupportedOperationException("Unsupported HTTP method");
+		}
+	}
 
-    public NetworkRequest(String url, String userAgent, String header) {
+	/**
+	 * This will execute the POST request and return the requested responses.
+	 * This Class object should be cleared from memory after this method has been exectued
+	 *
+	 * @return This will return a Map<Key, Returned Value> of the responses
+	 * which will relate to the values returned by the POST statement.
+	 */
+	public abstract String run();
 
-        this.url = url;
-        this.header = header;
-        this.userAgent = userAgent;
-    }
+	/**
+	 * This method is called to add a string value against a key to the POST request.
+	 *
+	 * @param key   The key for that string value.
+	 * @param value The string value you want to send.
+	 */
+	public void addKeyValuePair(String key, String value) {
 
-    /**
-     * This will execute the POST request and return the requested responses.
-     * This Class object should be cleared from memory after this method has been exectued
-     *
-     * @return This will return a Map<Key, Returned Value> of the responses
-     * which will relate to the values returned by the POST statement.
-     */
-    private JSONObject run() {
-        HttpClientBuilder buildClient = HttpClientBuilder.create();
-        HttpClient client = buildClient.build();
-        HttpPost post = new HttpPost(url);
+		urlParameters.addTextBody(key, value);
+	}
 
-        //TODO: Add headers to the header.
-        //TODO: Should fix this soon...
+	/**
+	 * This method is called to add a file against a key to the POST request.
+	 *
+	 * @param key  The string key for that file value.
+	 * @param file The file you would like to POST.
+	 */
+	public void addPostFile(String key, File file) {
 
-        post.setHeader("User-Agent", userAgent);
-        post.setEntity(urlParameters.build());
-        HttpResponse response = null;
+		urlParameters.addBinaryBody(key, file);
+	}
 
-        try {
-            response = client.execute(post);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	public enum Method {
+		GET,
+		POST;
 
-        StringBuilder sb = new StringBuilder();
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(response.getEntity().getContent());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        while (scanner.hasNext() && scanner != null) {
+		private static final Map<String, Method> byName = new HashMap<String, Method>();
 
-            sb.append(scanner.next());
-        }
+		static {
+			for (Method m : Method.values()) {
+				byName.put(m.name().toUpperCase(), m);
+			}
+		}
 
-        JSONObject jsonMap = new JSONObject(sb.toString());
-
-        return jsonMap;
-    }
-
-    /**
-     * This method is called to add a string value against a key to the POST request.
-     *
-     * @param key   The key for that string value.
-     * @param value The string value you want to send.
-     */
-    public void addPostString(String key, String value) {
-
-        urlParameters.addTextBody(key, value);
-    }
-
-    /**
-     * This method is called to add a file against a key to the POST request.
-     *
-     * @param key  The string key for that file value.
-     * @param file The file you would like to POST.
-     */
-    public void addPostFile(String key, File file) {
-
-        urlParameters.addBinaryBody(key, file);
-    }
+		public static Method getMethod(String name) {
+			Method m = Method.byName.get(name.toUpperCase());
+			return m != null ? m : GET;
+		}
+	}
 }

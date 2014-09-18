@@ -1,20 +1,19 @@
 package pro.zackpollard.projectx.io.image;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class SaveImage {
 
-    public static void saveImage(BufferedImage image, File output, ImageFormat format) {
+	public static void saveImage(BufferedImage image, File output, ImageFormat format) {
 
-        output.mkdirs();
+		output.mkdirs();
 
-        try {
-            javax.imageio.ImageIO.write(image, format.name().toLowerCase(), output);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			javax.imageio.ImageIO.write(image, format.name().toLowerCase(), output);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
