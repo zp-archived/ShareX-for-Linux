@@ -55,6 +55,7 @@ public class SelectionScreenshot extends Command {
         */
         repaint(screen, screenCopy);
         screenLabel.repaint();
+        panel.setVisible(true);
 
         screenLabel.addMouseMotionListener(new MouseMotionAdapter() {
 
