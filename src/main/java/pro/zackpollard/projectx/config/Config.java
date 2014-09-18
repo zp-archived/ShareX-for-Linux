@@ -89,7 +89,7 @@ public class Config {
 
 		try {
 			if (!configFile.createNewFile()) {
-				throw new IOException("Failed to create config.json");
+				throw new IOException("Failed to create Custom-Image.json");
 			}
 		} catch (IOException ex) {
 			// Well fuck it, we need that config file
@@ -99,7 +99,7 @@ public class Config {
 			System.exit(-1);
 		}
 
-		InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.json");
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream("Custom-Image.json");
 		if (in == null) {
 			return;
 		}
