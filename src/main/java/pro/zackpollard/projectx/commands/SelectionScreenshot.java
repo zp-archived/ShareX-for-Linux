@@ -46,7 +46,7 @@ public class SelectionScreenshot extends Command {
         */
         screenLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
+        panel.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel.add(screenLabel);
 
         /*final JLabel selectionLabel = new JLabel(
