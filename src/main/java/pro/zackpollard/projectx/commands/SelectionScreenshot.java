@@ -43,7 +43,7 @@ public class SelectionScreenshot extends Command {
                 (int) (screen.getHeight())));
         */
         JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
         panel.add(screenLabel);
         frame.add(panel);
