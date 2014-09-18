@@ -3,6 +3,8 @@ package pro.zackpollard.projectx;
 import lombok.Getter;
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
+import pro.zackpollard.projectx.commands.SelectionScreenShot;
+import pro.zackpollard.projectx.commands.SelectionScreenshot;
 import pro.zackpollard.projectx.config.Config;
 import pro.zackpollard.projectx.managers.CommandManager;
 import pro.zackpollard.projectx.managers.ImageUploadManager;
@@ -64,6 +66,7 @@ public class ProjectX {
 	private void registerCommands() {
 
 		this.getCommandManager().registerCommand(new FullScreenScreenshot(this, "fss"));
+        this.getCommandManager().registerCommand(new SelectionScreenshot(this, "sss"));
 	}
 
 	private void registerUploaders() {
