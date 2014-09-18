@@ -11,50 +11,50 @@ import java.util.Map;
 
 public class ImageUploadManager {
 
-	private ProjectX instance;
+    private ProjectX instance;
 
     private Config config;
 
-	private ImageUploader selectedUploader;
+    private ImageUploader selectedUploader;
 
-	private Map<String, ImageUploader> uploaderMap = new HashMap<>();
+    private Map<String, ImageUploader> uploaderMap = new HashMap<>();
 
-	public ImageUploadManager(ProjectX instance) {
+    public ImageUploadManager(ProjectX instance) {
 
-		this.instance = instance;
-		//TODO: Get selected uploader from config.
+        this.instance = instance;
+        //TODO: Get selected uploader from config.
         this.config = new Config(instance, new File("Custom-Image.json"));
-	}
+    }
 
-	public ImageUploader getUploader() {
+    public ImageUploader getUploader() {
 
-		return this.selectedUploader;
-	}
+        return this.selectedUploader;
+    }
 
-	/**
-	 * This will change the current uploader to the new uploader selected by the user.
-	 *
-	 * @param uploader The uploader that will be used.
-	 */
-	public void setUploader(ImageUploader uploader) {
+    /**
+     * This will change the current uploader to the new uploader selected by the user.
+     *
+     * @param uploader The uploader that will be used.
+     */
+    public void setUploader(ImageUploader uploader) {
 
-		this.selectedUploader = uploader;
-		//TODO: Save new uploader back to config
-	}
+        this.selectedUploader = uploader;
+        //TODO: Save new uploader back to config
+    }
 
 
-	/**
-	 * When a new ImageUploader is created, it should be added here with the name that it should have in the GUI. This makes it available for selection.
-	 */
+    /**
+     * When a new ImageUploader is created, it should be added here with the name that it should have in the GUI. This makes it available for selection.
+     */
 
-	public Map<String, ImageUploader> getImageUploaders() {
+    public Map<String, ImageUploader> getImageUploaders() {
 
-		return this.uploaderMap;
-	}
+        return this.uploaderMap;
+    }
 
     public ImageUploader getImageUploader(String name) {
         ImageUploader uploader = this.uploaderMap.get(name);
-        if(uploader == null) {
+        if (uploader == null) {
             uploader = new CustomImageUploader(instance, name);
             this.config.loadAPI(name, uploader, instance.getLogger());
             this.uploaderMap.put(name, uploader);
@@ -62,8 +62,8 @@ public class ImageUploadManager {
         return uploader;
     }
 
-	public void registerUploader(ImageUploader uploader) {
+    public void registerUploader(ImageUploader uploader) {
 
-		this.uploaderMap.put(uploader.getName(), uploader);
-	}
+        this.uploaderMap.put(uploader.getName(), uploader);
+    }
 }

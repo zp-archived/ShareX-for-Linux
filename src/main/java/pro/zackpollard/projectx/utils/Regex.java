@@ -12,17 +12,17 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class Regex {
 
-	@Getter
-	private final Pattern regex;
+    @Getter
+    private final Pattern regex;
 
-	@Getter
-	private final String replacement;
+    @Getter
+    private final String replacement;
 
-	public String replace(String response) {
-		Matcher m = regex.matcher(response);
-		if (!m.matches()) {
-			return response;
-		}
-		return m.replaceAll(this.replacement);
-	}
+    public String replace(String response) {
+        Matcher m = regex.matcher(response);
+        if (!m.matches()) {
+            return response;
+        }
+        return m.replaceAll(this.replacement);
+    }
 }

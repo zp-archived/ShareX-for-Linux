@@ -1,29 +1,29 @@
 {
     "name": "zack bb":
-    {
-        "url": "http://zackpollard.com/imageapi/",
-        "method": "POST",
-        "file": "",
-        "response-filters": [
-            {
-                "regex": "\\{\"key\":\"(.*?)\"\\}",
-                "replacement": "$1"
-            },
-            {
-                "regex": "\\{\"url\":\"(.*?)\"\\}",
-                "replacement": "$1"
-            }
-        ],
-        "response-format": {
-            "image": "",
-            "thumbnail": "",
-            "delete": ""
-        },
-        "optional-headers": {
-            "opt": "value"
-        },
-        "optional-parameters": {
-            "key": "value"
-        }
-    }
+{
+"url": "http://zackpollard.com/imageapi/",
+"method": "POST",
+"file": "",
+"response-filters": [
+{
+"regex": "\\{\"key\":\"(.*?)\"\\}",
+"replacement": "$1"
+},
+{
+"regex": "\\{\"url\":\"(.*?)\"\\}",
+"replacement": "$1"
+}
+],
+"response-format": {
+"image": "",
+"thumbnail": "",
+"delete": ""
+},
+"optional-headers": {
+"opt": "value"
+},
+"optional-parameters": {
+"key": "value"
+}
+}
 }

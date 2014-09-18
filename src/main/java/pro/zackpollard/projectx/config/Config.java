@@ -22,7 +22,7 @@ public class Config {
 
     private final ProjectX projectX;
 
-	private final File configFile;
+    private final File configFile;
 
     private Map<String, JSONObject> unparsed;
 
@@ -48,10 +48,10 @@ public class Config {
         Iterator<String> keys = object.keys();
         String key;
         JSONObject data;
-        while(keys.hasNext()) {
+        while (keys.hasNext()) {
             key = keys.next();
             data = object.optJSONObject(key);
-            if(data == null) {
+            if (data == null) {
                 // TODO: log this
                 continue;
             }
@@ -82,43 +82,43 @@ public class Config {
         return this.unparsed.keySet();
     }
 
-	public void saveDefaultConfig() {
-		if (configFile.exists()) {
-			return;
-		}
+    public void saveDefaultConfig() {
+        if (configFile.exists()) {
+            return;
+        }
 
-		try {
-			if (!configFile.createNewFile()) {
-				throw new IOException("Failed to create Custom-Image.json");
-			}
-		} catch (IOException ex) {
-			// Well fuck it, we need that config file
-			// The error should give them plenty of
-			// information to fix it
-			projectX.getLogger().log(Logger.LoggerLevel.DEBUG, "There was an error when saving the default config.", ex);
-			System.exit(-1);
-		}
+        try {
+            if (!configFile.createNewFile()) {
+                throw new IOException("Failed to create Custom-Image.json");
+            }
+        } catch (IOException ex) {
+            // Well fuck it, we need that config file
+            // The error should give them plenty of
+            // information to fix it
+            projectX.getLogger().log(Logger.LoggerLevel.DEBUG, "There was an error when saving the default config.", ex);
+            System.exit(-1);
+        }
 
-		InputStream in = this.getClass().getClassLoader().getResourceAsStream("Custom-Image.json");
-		if (in == null) {
-			return;
-		}
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("Custom-Image.json");
+        if (in == null) {
+            return;
+        }
 
-		String line;
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		     BufferedWriter writer = new BufferedWriter(new FileWriter(this.configFile))) {
-			while ((line = reader.readLine()) != null) {
-				writer.write(line);
-				writer.newLine();
-			}
-		} catch (IOException ex) {
-			this.configFile.delete();
-			ex.printStackTrace();
-			System.exit(-1);
-		}
-	}
+        String line;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(this.configFile))) {
+            while ((line = reader.readLine()) != null) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException ex) {
+            this.configFile.delete();
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+    }
 
-	public boolean loadAPI(String api, Uploader uploader, Logger logger) {
+    public boolean loadAPI(String api, Uploader uploader, Logger logger) {
 
         JSONObject object = this.unparsed.get(api);
         if (object == null) {

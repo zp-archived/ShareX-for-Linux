@@ -8,28 +8,28 @@ import pro.zackpollard.projectx.uploaders.UploadStatus;
  */
 public class CustomImageUploader extends ImageUploader {
 
-	public CustomImageUploader(ProjectX projectX, String name) {
-		super(projectX, name);
-	}
+    public CustomImageUploader(ProjectX projectX, String name) {
+        super(projectX, name);
+    }
 
-	@Override
-	public UploadStatus testConnection() {
+    @Override
+    public UploadStatus testConnection() {
 
-		//TODO: This runs a test upload and checks if the image uploaded successfully.
+        //TODO: This runs a test upload and checks if the image uploaded successfully.
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public boolean isSetup() {
+    @Override
+    public boolean isSetup() {
 
-		//TODO: This needs to check if the config contains settings for this uploader.
+        //TODO: This needs to check if the config contains settings for this uploader.
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void runSetup() {
-		//TODO: Once GUI is implemented do a setup run if this is enabled.
-	}
+    @Override
+    public void runSetup() {
+        //TODO: Once GUI is implemented do a setup run if this is enabled.
+    }
 }

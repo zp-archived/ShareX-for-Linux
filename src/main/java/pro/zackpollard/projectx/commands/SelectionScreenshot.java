@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Area;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -22,6 +21,22 @@ public class SelectionScreenshot extends Command {
     public SelectionScreenshot(ProjectX projectX, String name) {
 
         super(projectX, name);
+    }
+
+    public static Rectangle getVirtualBounds() {
+
+        Rectangle bounds = new Rectangle(0, 0, 0, 0);
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice lstGDs[] = ge.getScreenDevices();
+        for (GraphicsDevice gd : lstGDs) {
+
+            bounds.add(gd.getDefaultConfiguration().getBounds());
+
+        }
+
+        return bounds;
+
     }
 
     @Override
@@ -51,7 +66,8 @@ public class SelectionScreenshot extends Command {
     public class SnipItPane extends JPanel {
 
         private Point mouseAnchor;
-        private Point dragPoint;;
+        private Point dragPoint;
+        ;
 
         private SelectionPane selectionPane;
 
@@ -177,21 +193,5 @@ public class SelectionScreenshot extends Command {
             g2d.drawRect(0, 0, getWidth() - 3, getHeight() - 3);
             g2d.dispose();
         }
-    }
-
-    public static Rectangle getVirtualBounds() {
-
-        Rectangle bounds = new Rectangle(0, 0, 0, 0);
-
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice lstGDs[] = ge.getScreenDevices();
-        for (GraphicsDevice gd : lstGDs) {
-
-            bounds.add(gd.getDefaultConfiguration().getBounds());
-
-        }
-
-        return bounds;
-
     }
 }
