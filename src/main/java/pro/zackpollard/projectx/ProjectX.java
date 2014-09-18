@@ -15,11 +15,8 @@ import java.io.File;
 public class ProjectX {
 
 	private static Robot robot;
-	@Getter
-	private static ProjectX instance;
 	private final CommandManager commandManager = new CommandManager(this);
 	private final Logger logger = new Logger();
-	private final Config config = new Config(this);
 	private ImageUploadManager imageUploadManager = new ImageUploadManager(this);
 
 	public static Robot getRobot() {
@@ -28,8 +25,6 @@ public class ProjectX {
 	}
 
 	public void start(String[] args) {
-
-		instance = this;
 
 		registerCommands();
 		registerUploaders();
@@ -40,9 +35,6 @@ public class ProjectX {
 			Command command = commandManager.getCommandWithName(args[0]);
 			command.execute();
 		}
-
-		this.config.saveDefaultConfig();
-		this.config.loadConfiguration(new File("config.json"), this.logger);
 	}
 
 	/**
