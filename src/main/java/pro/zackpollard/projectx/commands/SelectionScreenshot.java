@@ -42,12 +42,10 @@ public class SelectionScreenshot extends Command {
                 (int) (screen.getWidth()),
                 (int) (screen.getHeight())));
         */
-        JFrame frame = new JFrame();
-        //JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        //panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
-        //panel.add(screenLabel);
-        frame.add(screenLabel);
-        frame.setUndecorated(true);
+
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
+        panel.add(screenLabel);
 
         /*final JLabel selectionLabel = new JLabel(
                 "Drag a rectangle in the screen shot!");
@@ -79,7 +77,7 @@ public class SelectionScreenshot extends Command {
             }
         });
 
-        JOptionPane.showMessageDialog(null, frame);
+        JOptionPane.showMessageDialog(null, panel);
 
         System.out.println("Rectangle of interest: " + captureRect);
     }
