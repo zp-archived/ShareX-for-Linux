@@ -3,7 +3,6 @@ package pro.zackpollard.projectx;
 import lombok.Getter;
 import pro.zackpollard.projectx.commands.Command;
 import pro.zackpollard.projectx.commands.FullScreenScreenshot;
-import pro.zackpollard.projectx.commands.SelectionScreenShot;
 import pro.zackpollard.projectx.commands.SelectionScreenshot;
 import pro.zackpollard.projectx.config.Config;
 import pro.zackpollard.projectx.managers.CommandManager;
