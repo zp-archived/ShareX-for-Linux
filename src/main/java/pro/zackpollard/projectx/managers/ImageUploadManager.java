@@ -1,14 +1,20 @@
 package pro.zackpollard.projectx.managers;
 
 import pro.zackpollard.projectx.ProjectX;
+import pro.zackpollard.projectx.config.Config;
+import pro.zackpollard.projectx.uploaders.image.CustomImageUploader;
 import pro.zackpollard.projectx.uploaders.image.ImageUploader;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ImageUploadManager {
 
 	private ProjectX instance;
+
+    private Config config;
+
 	private ImageUploader selectedUploader;
 
 	private Map<String, ImageUploader> uploaderMap = new HashMap<>();
@@ -17,6 +23,7 @@ public class ImageUploadManager {
 
 		this.instance = instance;
 		//TODO: Get selected uploader from config.
+        this.config = new Config(instance, new File("Custom-Image.json"));
 	}
 
 	public ImageUploader getUploader() {
@@ -44,6 +51,16 @@ public class ImageUploadManager {
 
 		return this.uploaderMap;
 	}
+
+    public ImageUploader getImageUploader(String name) {
+        ImageUploader uploader = this.uploaderMap.get(name);
+        if(uploader == null) {
+            uploader = new CustomImageUploader(instance, name);
+            this.config.loadAPI(name, uploader, instance.getLogger());
+            this.uploaderMap.put(name, uploader);
+        }
+        return uploader;
+    }
 
 	public void registerUploader(ImageUploader uploader) {
 

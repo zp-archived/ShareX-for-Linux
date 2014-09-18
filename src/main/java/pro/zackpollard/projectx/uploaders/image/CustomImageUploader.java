@@ -8,7 +8,6 @@ import pro.zackpollard.projectx.uploaders.UploadStatus;
  */
 public class CustomImageUploader extends ImageUploader {
 
-
 	public CustomImageUploader(ProjectX projectX, String name) {
 		super(projectX, name);
 	}

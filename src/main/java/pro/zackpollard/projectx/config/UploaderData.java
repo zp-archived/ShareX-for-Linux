@@ -8,7 +8,6 @@ import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.NetworkRequest;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.uploaders.image.ImageUploader;
-import pro.zackpollard.projectx.utils.ParserData;
 import pro.zackpollard.projectx.utils.Regex;
 
 import java.util.Iterator;
@@ -19,25 +18,16 @@ import java.util.regex.PatternSyntaxException;
  * @author DarkSeraphim
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class UploaderData extends ConfigurableData<Uploader> {
+public class UploaderData extends ConfigurableData {
 
-	public Uploader parse(JSONObject json) {
-		String name = json.getString("name");
-		Uploader.Type type = Uploader.Type.getType(json.getString("type"));
-		if (type == Uploader.Type.UNKNOWN) {
-			this.throwError(new IllegalArgumentException("Invalid API type"));
-			return null;
-		}
-
-		Uploader uploader;
-		switch (type) {
+	public void parse(JSONObject json, Uploader uploader) {
+		switch (uploader.getType()) {
 			case IMAGE:
-				uploader = ProjectX.getInstance().getImageUploadManager().getUploader();
 				this.loadImageUploader((ImageUploader) uploader, json);
 				break;
 			default:
 				this.throwError(new IllegalArgumentException("Unsupported API type"));
-				return null;
+				return;
 		}
 
 		uploader.setUrl(getString(json, "url"));
@@ -69,8 +59,6 @@ public class UploaderData extends ConfigurableData<Uploader> {
 				}
 			}
 		}
-
-		return uploader;
 	}
 
 	private void loadImageUploader(ImageUploader uploader, JSONObject object) {
@@ -129,5 +117,4 @@ public class UploaderData extends ConfigurableData<Uploader> {
 			}
 		}
 	}
-
 }

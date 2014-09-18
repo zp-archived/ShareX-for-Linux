@@ -1,38 +1,44 @@
 package pro.zackpollard.projectx.config;
 
 import org.json.JSONObject;
-import pro.zackpollard.projectx.utils.ParserData;
-
-import java.util.ArrayList;
-import java.util.List;
+import pro.zackpollard.projectx.uploaders.Uploader;
+import pro.zackpollard.projectx.utils.Logger;
 
 /**
  * @author DarkSeraphim
  */
-public abstract class ConfigurableData<Result> {
+public abstract class ConfigurableData {
 
-	private final List<String> warnings = new ArrayList<String>();
+    private boolean header = true;
 
-	private final List<Exception> exceptions = new ArrayList<Exception>();
+    private boolean success = true;
 
-	public ParserData<Result> load(JSONObject object) {
-		this.warnings.clear();
-		this.exceptions.clear();
-		Result result = parse(object);
-		if (!this.exceptions.isEmpty()) {
-			result = null;
-		}
-		return new ParserData<Result>(result, this.warnings, this.exceptions);
+	private Logger logger;
+
+	public boolean load(JSONObject object, Uploader uploader, Logger logger) {
+        this.header = true;
+        this.success = true;
+        this.logger = logger;
+		parse(object, uploader);
+        this.logger = null;
+		return this.success;
 	}
 
-	protected abstract Result parse(JSONObject object);
+	protected abstract void parse(JSONObject object, Uploader uploader);
 
 	protected final void throwError(Exception ex) {
-		this.exceptions.add(ex);
+        this.logger.log(Logger.LoggerLevel.WARNING, ex.getLocalizedMessage());
 	}
 
 	protected final void issueWarning(String warning) {
-		this.warnings.add(warning);
+        this.logger.log(Logger.LoggerLevel.WARNING, warning);
 	}
+
+    protected final void printHeader() {
+        if(this.header) {
+            this.logger.log(Logger.LoggerLevel.WARNING, "Error(s) and/or warning(s) occurred while parsing the config");
+            this.header = false;
+        }
+    }
 
 }
