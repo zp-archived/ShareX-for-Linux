@@ -43,6 +43,7 @@ public class SelectionScreenshot extends Command {
                 (int) (screen.getHeight())));
         */
         JPanel panel = new JPanel();
+        panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
         //panel.add(screenScroll, BorderLayout.CENTER);
 
         final JLabel selectionLabel = new JLabel(
