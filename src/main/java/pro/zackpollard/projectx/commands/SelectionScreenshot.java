@@ -3,6 +3,8 @@ package pro.zackpollard.projectx.commands;
 import pro.zackpollard.projectx.ProjectX;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -42,7 +44,7 @@ public class SelectionScreenshot extends Command {
                 (int) (screen.getWidth()),
                 (int) (screen.getHeight())));
         */
-
+        screenLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
         panel.add(screenLabel);
