@@ -42,14 +42,17 @@ public class SelectionScreenshot extends Command {
                 (int) (screen.getWidth()),
                 (int) (screen.getHeight())));
         */
+        JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
-        panel.add(screenLabel, BorderLayout.CENTER);
+        panel.add(screenLabel);
+        frame.add(panel);
+        frame.setUndecorated(true);
 
-        final JLabel selectionLabel = new JLabel(
+        /*final JLabel selectionLabel = new JLabel(
                 "Drag a rectangle in the screen shot!");
         panel.add(selectionLabel, BorderLayout.SOUTH);
-
+        */
         repaint(screen, screenCopy);
         screenLabel.repaint();
 
@@ -61,7 +64,7 @@ public class SelectionScreenshot extends Command {
             public void mouseMoved(MouseEvent me) {
                 start = me.getPoint();
                 repaint(screen, screenCopy);
-                selectionLabel.setText("Start Point: " + start);
+                //selectionLabel.setText("Start Point: " + start);
                 screenLabel.repaint();
             }
 
@@ -72,7 +75,7 @@ public class SelectionScreenshot extends Command {
                         new Dimension(end.x - start.x, end.y - start.y));
                 repaint(screen, screenCopy);
                 screenLabel.repaint();
-                selectionLabel.setText("Rectangle: " + captureRect);
+                //selectionLabel.setText("Rectangle: " + captureRect);
             }
         });
 
