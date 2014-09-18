@@ -119,6 +119,7 @@ public class SelectionScreenshot extends Command {
         private JLabel label;
 
         public SelectionPane() {
+            button = new JButton("Close");
             setOpaque(false);
 
             label = new JLabel("Rectangle");
