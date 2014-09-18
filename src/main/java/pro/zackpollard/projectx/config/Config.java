@@ -1,51 +1,86 @@
 package pro.zackpollard.projectx.config;
 
-import lombok.RequiredArgsConstructor;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.utils.Logger;
-import pro.zackpollard.projectx.utils.ParserData;
 
 import java.io.*;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author DarkSeraphim
  */
-@RequiredArgsConstructor
 public class Config {
 
-	//TODO: Currently one config for all uploaders, this should be changed to one config per uploader in the future.
+    private static final UploaderData data = new UploaderData();
 
-	private final File configFile = new File("config.json");
+    //TODO: Currently one config for all uploaders, this should be changed to one config per uploader in the future.
 
-	private final ProjectX projectX;
+    private final ProjectX projectX;
 
-	private Map<Uploader.Type, Collection<Uploader>> byType = new EnumMap<Uploader.Type, Collection<Uploader>>(Uploader.Type.class);
+	private final File configFile;
 
-	private Map<String, Uploader> byName = new HashMap<String, Uploader>();
+    private Map<String, JSONObject> unparsed;
 
-	private static String loadConfigurationAsString(File configFile) {
-		StringBuilder jsonString = new StringBuilder();
-		String line;
-		try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
-			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-				// Ignore comments
-				if (line.startsWith("#")) {
-					continue;
-				}
-				jsonString.append(line);
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
-		}
-		return jsonString.toString();
-	}
+    public Config(ProjectX instance, File configFile) {
+        this.projectX = instance;
+        this.configFile = configFile;
+        init();
+    }
+
+    private final void init() {
+        saveDefaultConfig();
+        load();
+    }
+
+    public void load() {
+        String json = loadConfigurationAsString();
+        JSONObject object;
+        try {
+            object = new JSONObject(json);
+        } catch (JSONException ex) {
+            throw new IllegalArgumentException("Invalid JSON file.", ex);
+        }
+        Iterator<String> keys = object.keys();
+        String key;
+        JSONObject data;
+        while(keys.hasNext()) {
+            key = keys.next();
+            data = object.optJSONObject(key);
+            if(data == null) {
+                // TODO: log this
+                continue;
+            }
+            this.unparsed.put(key, data);
+        }
+    }
+
+    private final String loadConfigurationAsString() {
+        StringBuilder jsonString = new StringBuilder();
+        String line;
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                // Ignore comments
+                if (line.startsWith("#")) {
+                    continue;
+                }
+                jsonString.append(line);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return jsonString.toString();
+    }
+
+    public Set<String> getAPIs() {
+        return this.unparsed.keySet();
+    }
 
 	public void saveDefaultConfig() {
 		if (configFile.exists()) {
@@ -54,7 +89,7 @@ public class Config {
 
 		try {
 			if (!configFile.createNewFile()) {
-				throw new IOException("Failed to create config.json");
+				throw new IOException("Failed to create Custom-Image.json");
 			}
 		} catch (IOException ex) {
 			// Well fuck it, we need that config file
@@ -64,7 +99,7 @@ public class Config {
 			System.exit(-1);
 		}
 
-		InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.json");
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream("Custom-Image.json");
 		if (in == null) {
 			return;
 		}
@@ -83,77 +118,12 @@ public class Config {
 		}
 	}
 
-	public void loadConfiguration(File configFile, Logger logger) {
-		String json = loadConfigurationAsString(configFile);
-		projectX.getLogger().log(Logger.LoggerLevel.DEBUG, json);
-		JSONObject object;
-		try {
-			object = new JSONObject(json);
-		} catch (JSONException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
-			return;
-		}
-		JSONArray apis = object.optJSONArray("apis");
-		if (apis == null || apis.length() == 0) {
-			// No APIs? How do you want to handle that :P
-			return;
-		}
+	public boolean loadAPI(String api, Uploader uploader, Logger logger) {
 
-		boolean success = true;
-
-		String header = "Error(s) and/or warning(s) occurred while parsing the config";
-		ParserData<Uploader> pd;
-		for (int i = 0; i < apis.length(); i++) {
-			JSONObject apiData = apis.getJSONObject(i);
-			pd = UploaderData.loadAPI(apiData);
-			if (pd.wasSuccessful()) {
-				if (!registerUploader(pd.getResult())) {
-					if (header != null) {
-						logger.log(Logger.LoggerLevel.INFO, header);
-						header = null;
-					}
-					logger.log(Logger.LoggerLevel.WARNING, String.format("Uploader '%s' already exists!", pd.getResult().getName()));
-				}
-			} else {
-				success = false;
-				for (Exception ex : pd.getExceptions()) {
-					if (header != null) {
-						logger.log(Logger.LoggerLevel.INFO, header);
-						header = null;
-					}
-					logger.log(Logger.LoggerLevel.ERROR, ex.getLocalizedMessage());
-				}
-			}
-			if (pd.hasWarnings()) {
-				for (String warning : pd.getWarnings()) {
-					if (header != null) {
-						logger.log(Logger.LoggerLevel.INFO, header);
-						header = null;
-					}
-					logger.log(Logger.LoggerLevel.WARNING, warning);
-				}
-			}
-		}
-
-		if (!success) {
-			System.exit(-1);
-		}
-	}
-
-	private boolean registerUploader(Uploader uploader) {
-
-		if (this.byName.containsKey(uploader.getName())) {
-			return false;
-		}
-
-		Collection<Uploader> uploaders = this.byType.get(uploader.getType());
-		if (uploaders == null) {
-			uploaders = new LinkedHashSet<Uploader>();
-			this.byType.put(uploader.getType(), uploaders);
-		}
-		uploaders.add(uploader);
-		this.byName.put(uploader.getName(), uploader);
-		return true;
-	}
+        JSONObject object = this.unparsed.get(api);
+        if (object == null) {
+            throw new IllegalArgumentException("API name not found");
+        }
+        return data.load(object, uploader, logger);
+    }
 }
