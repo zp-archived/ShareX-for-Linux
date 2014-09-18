@@ -36,7 +36,7 @@ public class SelectionScreenshot extends Command {
                 screen.getHeight(),
                 screen.getType());
         final JLabel screenLabel = new JLabel(new ImageIcon(screenCopy));
-        JScrollPane screenScroll = new JScrollPane(screenLabel);
+        //JScrollPane screenScroll = new JScrollPane(screenLabel);
 
         /*screenScroll.setPreferredSize(new Dimension(
                 (int) (screen.getWidth()),
@@ -44,7 +44,7 @@ public class SelectionScreenshot extends Command {
         */
         JPanel panel = new JPanel();
         panel.setMinimumSize(new Dimension(screen.getWidth(), screen.getHeight()));
-        //panel.add(screenScroll, BorderLayout.CENTER);
+        panel.add(screenLabel, BorderLayout.CENTER);
 
         final JLabel selectionLabel = new JLabel(
                 "Drag a rectangle in the screen shot!");
