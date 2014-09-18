@@ -1,12 +1,18 @@
 package pro.zackpollard.projectx.commands;
 
 import pro.zackpollard.projectx.ProjectX;
+import pro.zackpollard.projectx.io.image.ImageFormat;
+import pro.zackpollard.projectx.io.image.SaveImage;
+import pro.zackpollard.projectx.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Area;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * Created by Zack on 18/09/2014.
@@ -20,6 +26,7 @@ public class SelectionScreenshot extends Command {
 
     @Override
     public void execute() {
+
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -44,7 +51,7 @@ public class SelectionScreenshot extends Command {
     public class SnipItPane extends JPanel {
 
         private Point mouseAnchor;
-        private Point dragPoint;
+        private Point dragPoint;;
 
         private SelectionPane selectionPane;
 
@@ -80,6 +87,8 @@ public class SelectionScreenshot extends Command {
                         height *= -1;
                     }
                     selectionPane.setBounds(x, y, width, height);
+                    System.out.println(x + "-" + y + "-" + width + "-" + height);
+
                     selectionPane.revalidate();
                     repaint();
                 }
@@ -110,7 +119,6 @@ public class SelectionScreenshot extends Command {
         private JLabel label;
 
         public SelectionPane() {
-            button = new JButton("Close");
             setOpaque(false);
 
             label = new JLabel("Rectangle");
@@ -131,7 +139,11 @@ public class SelectionScreenshot extends Command {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Rectangle rectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
                     SwingUtilities.getWindowAncestor(SelectionPane.this).dispose();
+                    BufferedImage image = ProjectX.getRobot().createScreenCapture(rectangle);
+                    File file = new File("./images/" + Utils.generateFileName("png"));
+                    SaveImage.saveImage(image, file, ImageFormat.PNG);
                 }
             });
 
