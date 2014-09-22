@@ -8,5 +8,6 @@ public enum OSType {
     WINDOWS,
     UNIX,
     SOLARIS,
-    MAC;
+    MAC,
+    OTHER;
 }
