@@ -7,6 +7,7 @@ import pro.zackpollard.projectx.uploaders.Uploader;
 import pro.zackpollard.projectx.utils.Logger;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Config {
 
     private final File configFile;
 
-    private Map<String, JSONObject> unparsed;
+	private Map<String, JSONObject> unparsed = new HashMap<>();
 
     public Config(ProjectX instance, File configFile) {
         this.projectX = instance;
