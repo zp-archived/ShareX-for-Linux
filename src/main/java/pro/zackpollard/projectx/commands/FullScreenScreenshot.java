@@ -20,11 +20,11 @@ public class FullScreenScreenshot extends Command {
     public void execute() {
 
         Robot robot = ProjectX.getRobot();
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
 
-        BufferedImage image = robot.createScreenCapture(new Rectangle(0, 0,
-                (int) toolkit.getScreenSize().getWidth(),
-                (int) toolkit.getScreenSize().getHeight()));
+        BufferedImage image = robot.createScreenCapture(new Rectangle(0, 0, width, height));
 
         //TODO: Make the image saving configurable
         //TODO: Make the image saving location configurable
