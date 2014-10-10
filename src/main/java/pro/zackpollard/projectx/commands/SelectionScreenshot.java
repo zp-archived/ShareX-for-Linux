@@ -3,6 +3,7 @@ package pro.zackpollard.projectx.commands;
 import pro.zackpollard.projectx.ProjectX;
 import pro.zackpollard.projectx.io.image.ImageFormat;
 import pro.zackpollard.projectx.io.image.SaveImage;
+import pro.zackpollard.projectx.utils.OSType;
 import pro.zackpollard.projectx.utils.Utils;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.*;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Zack on 18/09/2014.
@@ -32,15 +34,24 @@ public class SelectionScreenshot extends Command {
         for (GraphicsDevice gd : lstGDs) {
 
             bounds.add(gd.getDefaultConfiguration().getBounds());
-
         }
 
         return bounds;
-
     }
 
     @Override
     public void execute() {
+
+	    if (Utils.getOS().equals(OSType.UNIX)) {
+
+		    try {
+			    Process p = Runtime.getRuntime().exec("scrot -s "
+					    + new File("./images" + File.pathSeparator).getAbsolutePath()
+					    + Utils.generateFileName("png"));
+		    } catch (IOException e) {
+			    e.printStackTrace();
+		    }
+	    }
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -48,6 +59,7 @@ public class SelectionScreenshot extends Command {
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+	                ex.printStackTrace();
                 }
 
                 JFrame frame = new JFrame();
@@ -67,7 +79,6 @@ public class SelectionScreenshot extends Command {
 
         private Point mouseAnchor;
         private Point dragPoint;
-        ;
 
         private SelectionPane selectionPane;
 
@@ -170,6 +181,8 @@ public class SelectionScreenshot extends Command {
                     label.setText("Rectangle " + getX() + "x" + getY() + "x" + getWidth() + "x" + getHeight());
                 }
             });
+
+	        button.requestFocus();
 
         }
 
